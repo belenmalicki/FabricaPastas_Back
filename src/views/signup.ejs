@@ -1,0 +1,15 @@
+
+<!-- con esto llamo al mensaje y que me muestro lo que guarde en el signupMessage (en local-Auth)-->>
+
+<% if (signupMessage) { %>
+   <div><%= signupMessage %></div>
+<% } %>
+<!-- en el action le digo al endpoint que va a perteneceren este caso el  de registrarse
+y en el method le digo que es POST de sign up-->
+
+  <input type="email" name="email" placeholder="Insert Email">
+  <input type="password" name="password" placeholder="Insrt Password">
+  
+  <button type="submit">
+    SignUp
+  </button>
