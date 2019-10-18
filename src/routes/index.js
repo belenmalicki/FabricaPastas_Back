@@ -63,7 +63,8 @@ router.post('/insertContacto',function(req,res)
 {
     console.log(req.body);
     pastaController.insertContacto(req,res);
-    successRedirect:'/';
+    successRedirect='/';
+    failureRedirect='/insertContacto';
 });
 
 /*el isAuthenticated me va averificar que el usuario este loguedo, si lo esta, va a ingresar a profile, sino

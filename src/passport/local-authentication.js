@@ -52,33 +52,47 @@ let insertContacto = (req,res, password,mail) =>
         nombre: req.body.nombre,
         telefono: req.body.telefono
     });
-    const user = User.find({mail:'a'});
-    if(user){
-        console.log("ya existe");
-       // return(req.flash('signupMessage', 'El Email ya existe.'))
-    }
-    else{
+ 
+    
         console.log("ingresado");
-    newContacto.password= newContacto.encryptPassword(password);
-    newContacto.save().
-    then
-    (
-        (newContacto)=>
+        let filtro = {mail:req.body.mail};
+        User.find(filtro,function(err,usuario)
         {
-            res.status(200).send(newContacto); //devuelvo resultado query       
-        },
-        (err)=>
-        { 
-            res.status(500).send(err);
-            console.log(err);
-        }
-    ) 
-}}
+            //si no existe el mail lo creo
+            if (usuario.length==0)
+            {
+                newContacto.password= newContacto.encryptPassword(password);
+                newContacto.save().
+                then
+                (
+                    (newContacto)=>
+                    {
+                        res.status(200).send(newContacto); //devuelvo resultado query       
+                    },
+                    (err)=>
+                    { 
+                        res.status(500).send(err);
+                        console.log(err);
+                    }
+                ) 
+            }
+            else
+            {
+                console.log("usu",usuario);
+                res.status(501).send({estado:"El mail informado ya existe"}); //devuelvo resultado query   
+                //console.log(listaContactos);    
+            }
+        })
+
+
+}
+
+
 
 
 passport.use('local-signin', new localStrategy({
-    usernameField:'email',
-    passwordField:'password',
+    mail:'email',
+    password:'password',
     passReqToCallback:true
 }, async(req, email, password, done) => {
     const user = await User.findOne({email:email});
