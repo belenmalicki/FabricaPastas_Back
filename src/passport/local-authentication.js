@@ -16,7 +16,7 @@ passport.deserializeUser(async (id,done)=>{
 //el metodo local-signup lo vamos a usar en la ruta
 /*({}, () => {}) en las primera llaves un objeto que dice que tipos de datos recibimos del cliente
 y la funcion arrow que vamos a hacer con esos datos*/
-
+/*
 passport.use('local-signup', new localStrategy({
     //email y password porque es el nombre que le di dentro de la view del signup
     usernameField:'email',
@@ -40,8 +40,9 @@ passport.use('local-signup', new localStrategy({
 
     }
   
-}));
+}));*/
 
+//usando actualemnte
 let insertContacto = (req,res, password,mail) =>
 {
 
@@ -54,14 +55,14 @@ let insertContacto = (req,res, password,mail) =>
     });
  
     
-        console.log("ingresado");
+        //console.log("ingresado");
         let filtro = {mail:req.body.mail};
         User.find(filtro,function(err,usuario)
         {
             //si no existe el mail lo creo
             if (usuario.length==0)
             {
-                newContacto.password= newContacto.encryptPassword(password);
+               // newContacto.password= newContacto.encryptPassword(password);
                 newContacto.save().
                 then
                 (
@@ -72,6 +73,7 @@ let insertContacto = (req,res, password,mail) =>
                     (err)=>
                     { 
                         res.status(500).send(err);
+                    
                         console.log(err);
                     }
                 ) 
@@ -85,7 +87,44 @@ let insertContacto = (req,res, password,mail) =>
         })
 
 
-}
+};
+
+let buscarContacto =(req, res) =>{
+    let mailBusqueda = {mail:req.body.mail};
+    console.log(mailBusqueda);
+    let passBusqueda= req.body.password;
+    console.log(passBusqueda);
+    User.find(mailBusqueda,function(err,usuario)
+    { 
+        if (usuario.length!=0)
+        {
+            console.log('mail encontrado');
+           for (var i = 0; i < usuario.length; i++){
+            console.log(passBusqueda);
+            console.log(usuario[i].password );
+            console.log(comparePassword(passBusqueda,usuario[i].password  ));
+            // look for the entry with a matching `code` value
+            if (usuario[i].password == passBusqueda){
+              console.log('Password correcto');
+              res.status(200).send(usuario);
+            }
+            if (usuario[i].password != passBusqueda){
+                console.log('Password Incorrecto');
+            res.status(501).send({estado:"Los datos ingresados son incorrectos"});
+            }
+          }
+             
+        }
+        else
+        {   console.log("El mail es incorrecto");
+            console.log("usu",usuario);
+            res.status(501).send({estado:"Los datos ingresados son incorrectos"}); //devuelvo resultado query   
+        }
+    })
+
+
+};
+
 
 
 
@@ -106,4 +145,4 @@ passport.use('local-signin', new localStrategy({
 
 }))
 
-module.exports = {insertContacto}
+module.exports = {insertContacto, buscarContacto}

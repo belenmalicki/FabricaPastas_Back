@@ -31,14 +31,15 @@ router.get('/signup', (req, res, next) =>{
 en la ventana que le envié
 Lo que a hacer es autenticar los datos del local-signup(que esta el local-authentication) y si 
 ingreso bien lo redirige a la ruta profile, sino lo vuevle a mandar al signup*/
-
+/*
 router.post('/signup', passport.authenticate('local-signup', {
     successRedirect: '/profile',
     failureRedirect: '/signup',
     passReqToCallback: true,
 }));
-
+*/
 //lo mismo para cuando el usuario
+/*
 router.get('/signin', (req, res, next) =>{
     res.render('signin');
 
@@ -47,7 +48,7 @@ router.post('/signin', passport.authenticate ('local-signin', {
     successRedirect: '/profile',
     failureRedirect: '/signin',
     passReqToCallback: true,
-}));
+}));*/
 
 router.get('/logout', (req,res,next) =>{
     req.logout();
@@ -58,13 +59,19 @@ router.get('/logout', (req,res,next) =>{
 
 
 
-
+//usado actualmente
 router.post('/insertContacto',function(req,res)
 {
     console.log(req.body);
     pastaController.insertContacto(req,res);
     successRedirect='/';
     failureRedirect='/insertContacto';
+});
+
+router.post('/login',function(req,res)
+{
+    console.log("leer con filtro");
+    pastaController.buscarContacto(req,res);
 });
 
 /*el isAuthenticated me va averificar que el usuario este loguedo, si lo esta, va a ingresar a profile, sino
