@@ -102,8 +102,7 @@ let buscarContacto =(req, res) =>{
            for (var i = 0; i < usuario.length; i++){
             console.log(passBusqueda);
             console.log(usuario[i].password );
-            console.log(comparePassword(passBusqueda,usuario[i].password  ));
-            // look for the entry with a matching `code` value
+            
             if (usuario[i].password == passBusqueda){
               console.log('Password correcto');
               res.status(200).send(usuario);
@@ -129,7 +128,7 @@ let buscarContacto =(req, res) =>{
 
 
 
-passport.use('local-signin', new localStrategy({
+/*passport.use('local-signin', new localStrategy({
     mail:'email',
     password:'password',
     passReqToCallback:true
@@ -143,6 +142,6 @@ passport.use('local-signin', new localStrategy({
     }
     done(null, user)
 
-}))
+}))*/
 
 module.exports = {insertContacto, buscarContacto}

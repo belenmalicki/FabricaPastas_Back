@@ -1,4 +1,8 @@
-    
+/* npm install express-generator
+jquery */    
+
+
+
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt-nodejs');
 const { Schema } = mongoose;
