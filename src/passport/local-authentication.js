@@ -1,7 +1,6 @@
 const passport =require('passport');
-const localStrategy = require('passport-local').Strategy;
-
 const User =require('../models/user');
+const Prod = require('../models/products');
 
 //para serializar, si el cliente se va a otr pag, no le va a pedir que se loguee todo el tiempo
 passport.serializeUser((user, done)=>{
@@ -119,7 +118,21 @@ let buscarContacto =(req, res) =>{
             console.log("usu",usuario);
             res.status(501).send({estado:"Los datos ingresados son incorrectos"}); //devuelvo resultado query   
         }
-    })
+    });
+}
+    let getProductos =(req, res) =>
+    {console.log('leido');
+    Prod.find(function(err,listProd)
+        {
+            console.log(listProd);
+            res.status(200).send(listProd);
+            (err)=>{
+                res.status(500).send(err);
+                console.log(err);
+            }
+        }
+    );
+    
 
 
 };
@@ -144,4 +157,4 @@ let buscarContacto =(req, res) =>{
 
 }))*/
 
-module.exports = {insertContacto, buscarContacto}
+module.exports = {insertContacto, buscarContacto, getProductos}

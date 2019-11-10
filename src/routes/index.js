@@ -49,12 +49,12 @@ router.post('/signin', passport.authenticate ('local-signin', {
     failureRedirect: '/signin',
     passReqToCallback: true,
 }));*/
-
+/*
 router.get('/logout', (req,res,next) =>{
     req.logout();
     res.redirect('/');
 });
-
+*/
 
 
 
@@ -73,6 +73,16 @@ router.post('/login',function(req,res)
     console.log("leer con filtro");
     pastaController.buscarContacto(req,res);
 });
+router.get('/productos',function(req,res)
+{
+    console.log("leer");
+    pastaController.getProductos(req,res);
+});
+
+
+
+
+
 
 /*el isAuthenticated me va averificar que el usuario este loguedo, si lo esta, va a ingresar a profile, sino
 me manda  al a pagina principal */
