@@ -121,10 +121,10 @@ let buscarContacto =(req, res) =>{
     });
 }
     let getProductos =(req, res) =>
-    {console.log('leido');
+    {console.log('getprodcto leido');
     Prod.find(function(err,listProd)
         {
-            console.log(listProd);
+            //console.log(listProd);
             res.status(200).send(listProd);
             (err)=>{
                 res.status(500).send(err);
@@ -132,11 +132,49 @@ let buscarContacto =(req, res) =>{
             }
         }
     );
-    
-
-
 };
 
+let getContacto =(req, res, ) =>
+{console.log('getcontacto leido');
+let idBusqueda = {mail: req.body.mail};
+console.log(idBusqueda);
+User.find(idBusqueda,function(err,usuario)
+    {console.log('mi contacto es:', usuario);
+    res.status(200).send(usuario);
+        (listaContactos)=>
+        {   console.log('mi contacto es:',listaContactos);
+            res.status(200).send(listaContactos); //devuelvo resultado query   
+            //console.log(listaContactos);    
+        },
+        (err)=>
+        {
+            res.status(500).send(err);
+            console.log('mi error es:')
+            console.log(err);
+        }
+    });
+};
+
+
+let updateContacto = (req,res) => 
+{
+    let id = { mail : req.body.mail};
+   
+    console.log("update",id);
+   // console.log(newContacto);
+    Contactos.findOneAndUpdate({ mail : req.body.mail},{$set : {direccion: req.body.newData.direccion}},{new:true},function(err)
+    {
+       //console.log("respuesta",res);
+       //let rta = {estado: "Ok"};
+       res.status(200).send({estado:"Registro modificado"}); //devuelvo resultado query       
+       (err)=>
+        { 
+            res.status(500).send(err);
+            console.log(err);
+        }
+    
+    });
+}
 
 
 
@@ -157,4 +195,4 @@ let buscarContacto =(req, res) =>{
 
 }))*/
 
-module.exports = {insertContacto, buscarContacto, getProductos}
+module.exports = {insertContacto, buscarContacto, getProductos,getContacto}

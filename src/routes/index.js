@@ -64,8 +64,6 @@ router.post('/insertContacto',function(req,res)
 {
     console.log(req.body);
     pastaController.insertContacto(req,res);
-    successRedirect='/';
-    failureRedirect='/insertContacto';
 });
 
 router.post('/login',function(req,res)
@@ -79,6 +77,12 @@ router.get('/productos',function(req,res)
     pastaController.getProductos(req,res);
 });
 
+router.post('/getContacto',function(req,res)
+{   console.log("entre a getContacto");
+    pastaController.getContacto(req,res);
+});
+
+
 
 
 
@@ -86,16 +90,6 @@ router.get('/productos',function(req,res)
 
 /*el isAuthenticated me va averificar que el usuario este loguedo, si lo esta, va a ingresar a profile, sino
 me manda  al a pagina principal */
-router.get('/profile', isAuthenticated, (req, res, next)=> {
-    res.render('profile');
-})
-
-function isAuthenticated(req, res, next){
-    if(req.isAuthenticated()){
-        return next();
-    }
-    res.redirect('/');
-};
 
 
 module.exports = router;
