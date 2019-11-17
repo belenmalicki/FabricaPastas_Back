@@ -124,7 +124,7 @@ let buscarContacto =(req, res) =>{
     {console.log('getprodcto leido');
     Prod.find(function(err,listProd)
         {
-            //console.log(listProd);
+            console.log(listProd);
             res.status(200).send(listProd);
             (err)=>{
                 res.status(500).send(err);

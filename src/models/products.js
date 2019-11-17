@@ -7,6 +7,7 @@ var productsSchema = new Schema({
     tipo: Array,
     precio: Number, 
     descripcion:String,
+    unidad: Boolean,
     
 });
 
