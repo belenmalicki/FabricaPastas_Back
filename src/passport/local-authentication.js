@@ -1,6 +1,7 @@
 const passport =require('passport');
 const User =require('../models/user');
 const Prod = require('../models/products');
+const Pedido = require('../models/pedidos');
 
 //para serializar, si el cliente se va a otr pag, no le va a pedir que se loguee todo el tiempo
 passport.serializeUser((user, done)=>{
@@ -175,7 +176,35 @@ let updateContacto = (req,res) =>
     
     });
 }
+let insertPedido = (req,res) =>
+{
 
+    var newPedido = Pedido({
+        pedido: req.body,
+    });
+    //console.log('pedido:',newPedido);
+ 
+    newPedido.save().
+    then (
+        (newPedido)=>
+        {
+            res.status(200).send(newPedido); 
+            console.log('el pedido ingreso de 10')
+            console.log('pedido guardado:',newPedido)
+            ;//devuelvo resultado query       
+        },
+        (err)=>
+        { 
+            res.status(500).send(err);
+            console.log(err);
+        }
+    ) 
+
+
+};  
+
+
+;
 
 
 
@@ -195,4 +224,4 @@ let updateContacto = (req,res) =>
 
 }))*/
 
-module.exports = {insertContacto, buscarContacto, getProductos,getContacto}
+module.exports = {insertContacto, buscarContacto, getProductos,getContacto, insertPedido}

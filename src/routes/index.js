@@ -81,6 +81,11 @@ router.post('/getContacto',function(req,res)
 {   console.log("entre a getContacto");
     pastaController.getContacto(req,res);
 });
+router.post('/insertPedido',function(req,res)
+{
+    console.log('pedido actual',req.body);
+    pastaController.insertPedido(req,res);
+});
 
 
 
