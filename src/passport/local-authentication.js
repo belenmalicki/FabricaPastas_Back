@@ -156,6 +156,26 @@ User.find(idBusqueda,function(err,usuario)
     });
 };
 
+let getPedido =(req, res, ) =>
+{console.log('getPedido leido');
+let idBusqueda = {mail: req.body.mail};
+console.log(idBusqueda);
+Pedido.find(idBusqueda,function(err,pedido)
+    {console.log('mi contacto es:', pedido);
+    res.status(200).send(pedido);
+        (listaPedido)=>
+        {   console.log('mi contacto es:',listaPedido);
+            res.status(200).send(listaPedido); //devuelvo resultado query   
+            //console.log(listaContactos);    
+        },
+        (err)=>
+        {
+            res.status(500).send(err);
+            console.log('mi error es:')
+            console.log(err);
+        }
+    });
+};
 
 let updateContacto = (req,res) => 
 {
@@ -224,4 +244,4 @@ let insertPedido = (req,res) =>
 
 }))*/
 
-module.exports = {insertContacto, buscarContacto, getProductos,getContacto, insertPedido}
+module.exports = {insertContacto, buscarContacto, getProductos, getPedido,getContacto, insertPedido}
