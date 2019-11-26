@@ -62,7 +62,6 @@ let insertContacto = (req,res, password,mail) =>
             //si no existe el mail lo creo
             if (usuario.length==0)
             {
-               // newContacto.password= newContacto.encryptPassword(password);
                 newContacto.save().
                 then
                 (
@@ -74,13 +73,13 @@ let insertContacto = (req,res, password,mail) =>
                     { 
                         res.status(500).send(err);
                     
-                        console.log(err);
+                        //console.log(err);
                     }
                 ) 
             }
             else
             {
-                console.log("usu",usuario);
+                //console.log("usu",usuario);
                 res.status(501).send({estado:"El mail informado ya existe"}); //devuelvo resultado query   
                 //console.log(listaContactos);    
             }
@@ -91,41 +90,41 @@ let insertContacto = (req,res, password,mail) =>
 
 let buscarContacto =(req, res) =>{
     let mailBusqueda = {mail:req.body.mail};
-    console.log(mailBusqueda);
+    //console.log(mailBusqueda);
     let passBusqueda= req.body.password;
-    console.log(passBusqueda);
+    //console.log(passBusqueda);
     User.find(mailBusqueda,function(err,usuario)
     { 
         if (usuario.length!=0)
         {
-            console.log('mail encontrado');
+            //console.log('mail encontrado');
            for (var i = 0; i < usuario.length; i++){
-            console.log(passBusqueda);
-            console.log(usuario[i].password );
+            //console.log(passBusqueda);
+            //console.log(usuario[i].password );
             
             if (usuario[i].password == passBusqueda){
-              console.log('Password correcto');
+              //console.log('Password correcto');
               res.status(200).send(usuario);
             }
             if (usuario[i].password != passBusqueda){
-                console.log('Password Incorrecto');
+                //console.log('Password Incorrecto');
             res.status(501).send({estado:"Los datos ingresados son incorrectos"});
             }
           }
              
         }
         else
-        {   console.log("El mail es incorrecto");
-            console.log("usu",usuario);
+        {  // console.log("El mail es incorrecto");
+            //console.log("usu",usuario);
             res.status(501).send({estado:"Los datos ingresados son incorrectos"}); //devuelvo resultado query   
         }
     });
 }
     let getProductos =(req, res) =>
-    {console.log('getprodcto leido');
+    {//console.log('getprodcto leido');
     Prod.find(function(err,listProd)
         {
-            console.log(listProd);
+           // console.log(listProd);
             res.status(200).send(listProd);
             (err)=>{
                 res.status(500).send(err);
@@ -136,14 +135,14 @@ let buscarContacto =(req, res) =>{
 };
 
 let getContacto =(req, res, ) =>
-{console.log('getcontacto leido');
+{//console.log('getcontacto leido');
 let idBusqueda = {mail: req.body.mail};
-console.log(idBusqueda);
+//console.log(idBusqueda);
 User.find(idBusqueda,function(err,usuario)
-    {console.log('mi contacto es:', usuario);
+    {//console.log('mi contacto es:', usuario);
     res.status(200).send(usuario);
         (listaContactos)=>
-        {   console.log('mi contacto es:',listaContactos);
+        {  // console.log('mi contacto es:',listaContactos);
             res.status(200).send(listaContactos); //devuelvo resultado query   
             //console.log(listaContactos);    
         },
@@ -158,13 +157,13 @@ User.find(idBusqueda,function(err,usuario)
 
 let getPedido =(req, res, ) =>
 {console.log('getPedido leido');
-let idBusqueda = {mail: req.body.mail};
+let idBusqueda = {cliente: req.body.mail};
 console.log(idBusqueda);
 Pedido.find(idBusqueda,function(err,pedido)
-    {console.log('mi contacto es:', pedido);
+    {console.log('mi pedidooooo es:', pedido);
     res.status(200).send(pedido);
         (listaPedido)=>
-        {   console.log('mi contacto es:',listaPedido);
+        {   console.log('mi pedido es:',listaPedido);
             res.status(200).send(listaPedido); //devuelvo resultado query   
             //console.log(listaContactos);    
         },
@@ -200,9 +199,12 @@ let insertPedido = (req,res) =>
 {
 
     var newPedido = Pedido({
-        pedido: req.body,
+        pedido: req.body.pedido,
+        cliente: req.body.cliente,
+        sucursal: req.body.sucursal,
+        estado: req.body.estado
     });
-    //console.log('pedido:',newPedido);
+    console.log('pedido actual:',newPedido);
  
     newPedido.save().
     then (

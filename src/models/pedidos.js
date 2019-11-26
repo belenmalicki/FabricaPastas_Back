@@ -4,6 +4,9 @@ var Schema = mongoose.Schema;
 
 var pedidosSchema = new Schema({
     pedido: Array,
+    cliente: String,
+    sucursal: String,
+    estado: String,
     
 });
 

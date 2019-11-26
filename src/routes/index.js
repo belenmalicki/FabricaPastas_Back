@@ -62,7 +62,7 @@ router.get('/logout', (req,res,next) =>{
 //usado actualmente
 router.post('/insertContacto',function(req,res)
 {
-    console.log(req.body);
+    //console.log(req.body);
     pastaController.insertContacto(req,res);
 });
 
@@ -87,7 +87,7 @@ router.post('/getPedido',function(req,res)
 });
 router.post('/insertPedido',function(req,res)
 {
-    console.log('pedido actual',req.body);
+   // console.log('pedido en los routes',req.body);
     pastaController.insertPedido(req,res);
 });
 
